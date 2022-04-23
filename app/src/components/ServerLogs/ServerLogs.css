@@ -5,5 +5,26 @@
     position: fixed;
     right: 0;
     transition: 0.4s;
-    z-index: -1;
+    z-index: 1;
+    overflow: scroll;
+
+    max-width: 30vw;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.log {
+    height: 30vh;
+    background-color: white;
+    color: black;
+    overflow: auto;
+    margin: 0 30px;
+}
+
+.log-format {
+    font-size: 12px;
+    overflow-wrap: break-word;
+    word-break: normal;
+    white-space: pre-wrap;
+    margin: 9px 5px;
 }

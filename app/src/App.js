@@ -24,7 +24,7 @@ function App() {
 
   return (
     <div style={{height: "100vh", display: "flex", flexDirection: "row"}}>
-      <div style={{width: bodyWidth, transition: "0.4s", display: "flex", flexDirection:"column"}}>
+      <div style={{width: bodyWidth, transition: "0.4s", display: "flex", flexDirection:"column", zIndex: 2}}>
         <NavBar logOpen={logOpen} setLogOpen={setLogOpen} />
         <div className="body-container">
           <BrowserRouter>
