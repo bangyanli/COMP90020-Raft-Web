@@ -1,3 +1,8 @@
 .App {
   text-align: center;
 }
+
+.body-container {
+  background-color: white;
+  flex-grow: 1;
+}

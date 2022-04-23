@@ -1,0 +1,9 @@
+.logs-container {
+    height: 100%;
+    width: 30vw;
+    background-color: #ccc;
+    position: fixed;
+    right: 0;
+    transition: 0.4s;
+    z-index: -1;
+}
