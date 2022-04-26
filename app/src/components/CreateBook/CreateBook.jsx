@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from "react";
+import './CreateBook.css';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 // import ListItemText from '@mui/material/ListItemText';
@@ -11,6 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
+import InputField from "../Common/InputField";
 
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -19,6 +22,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 function CreateBook(props) {
     const {open, handleClose} =  props;
+
+    const [bookName, setBookName] = useState("");
+    const [bookAuthor, setBookAuthor] = useState("");
+    const [bookCategory, setBookCategory] = useState("");
+    const [bookDescription, setBookDescription] = useState("");
+    const [bookContent, setBookContent] = useState("");
+
+    const handleSubmit = () => {
+        console.log('handling submit...');
+        // TODO: Format data from state and submit request to backend
+    }
 
     return(
         <Dialog
@@ -40,13 +54,17 @@ function CreateBook(props) {
                 <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
                     Create a new Book
                 </Typography>
-                <Button autoFocus color="inherit" onClick={handleClose}>
+                <Button autoFocus color="inherit" onClick={handleSubmit}>
                     Create
                 </Button>
             </Toolbar>
         </AppBar>
-        <div>
-            Form Here
+        <div className="book-form">
+            <InputField label="Name" name="name" valueState={bookName} setValueState={setBookName} />
+            <InputField label="Author" name="author" valueState={bookAuthor} setValueState={setBookAuthor} />
+            <InputField label="Category" name="category" valueState={bookCategory} setValueState={setBookCategory} />
+            <InputField label="Description" name="description" valueState={bookDescription} setValueState={setBookDescription} style={{ width: "50%", height:"6em" }} textarea={true} />
+            <InputField label="Content" name="content" valueState={bookContent} setValueState={setBookContent} style={{ width: "100%", height:"20em" }} textarea={true} />
         </div>
       </Dialog>
     )
