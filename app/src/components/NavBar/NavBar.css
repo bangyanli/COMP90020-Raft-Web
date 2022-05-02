@@ -1,12 +1,18 @@
 .navbar {
-    height: 10vh;
+    height: 64px;
     background-color: #2196F3;
     width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     position: fixed;
+    transition: 0.4s;
+}
+
+.logo {
+    height: 80%;
+    margin-left: 20px;
 }
 
 
@@ -14,6 +20,7 @@
 .switch {
     position: relative;
     display: inline-block;
+    right: 0;
     width: 60px;
     height: 34px;
     margin-right: 30px;
