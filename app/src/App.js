@@ -16,7 +16,7 @@ function App() {
   const logWidth = "30vw";
 
   const [logOpen, setLogOpen] = useState(false);
-  const [bodyWidth, setBodyWidth] = useState("70vw");
+  const [bodyWidth, setBodyWidth] = useState("100vw");
   useEffect(()=>{
     setBodyWidth(`calc(100vw - ${logOpen ? logWidth : "0vw"})`)
     // console.log(bodyWidth);
@@ -26,15 +26,18 @@ function App() {
   return (
     <div style={{height: "100vh", display: "flex", flexDirection: "row"}}>
       <div style={{width: bodyWidth, transition: "0.4s", display: "flex", flexDirection:"column", zIndex: 2}}>
-        <NavBar logOpen={logOpen} setLogOpen={setLogOpen} width={bodyWidth}/>
-        <div className="body-container">
-          <BrowserRouter>
+        <BrowserRouter>
+          <NavBar logOpen={logOpen} setLogOpen={setLogOpen} width={bodyWidth}/>
+          <div className="body-container">
+            
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/book" element={<BookDetail />}/>
+              <Route path="/book/:bookName" element={<BookDetail />}/>
             </Routes> 
-          </BrowserRouter>
-        </div>
+            
+          </div>
+        </BrowserRouter>
+
       </div>
       <ServerLogs/>
     </div>

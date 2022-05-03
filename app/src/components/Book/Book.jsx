@@ -5,13 +5,22 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from "react-router-dom";
+
 
 function Book(props) {
+    const navigate = useNavigate();
     const {book} = props;
     const overflowControl = {
         overflow: "auto", 
         whiteSpace: "nowrap", 
         textOverflow: "ellipsis"
+    }
+
+    const handleReadBook = (book) => {
+        // window.history.pushState()
+        console.log(book);
+        navigate(`/book/${book.name}`);
     }
 
 
@@ -35,7 +44,7 @@ function Book(props) {
                 </Typography>
             </CardContent>
             <CardActions sx={{display: "flex", alignItems: "center", justifyContent: "flex-end"}}>
-                <Button size="small" onClick={()=>{alert("open book details")}}>Start Reading</Button>
+                <Button size="small" onClick={()=> {handleReadBook(book)}}>Start Reading</Button>
             </CardActions>
         </Card>
     )

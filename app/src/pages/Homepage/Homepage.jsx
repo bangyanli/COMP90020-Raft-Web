@@ -1,56 +1,58 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Book from "../../components/Book/Book";
 import CreateBook from "../../components/CreateBook/CreateBook";
 import { Button } from "@mui/material";
+import { getAllBooks, getBookInfo } from "../../api/book";
 
 
-const books = [
-    {
-        boodId : 123,
-        name : "long long long long long long long long long long bookName ",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-    },
-    {
-        boodId : 123,
-        name : "bookName",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-    },
-    {
-        boodId : 123,
-        name : "long long long long long long long long long long bookName ",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-    },
-    {
-        boodId : 123,
-        name : "bookName",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-    },
-    {
-        boodId : 123,
-        name : "long long long long long long long long long long bookName ",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-    },
-    {
-        boodId : 123,
-        name : "bookName",
-        author : "somebody",
-        category : "fiction",
-        description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-    }
-]
+// const books = [
+//     {
+//         boodId : 123,
+//         name : "long long long long long long long long long long bookName ",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
+//     },
+//     {
+//         boodId : 123,
+//         name : "bookName",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
+//     },
+//     {
+//         boodId : 123,
+//         name : "long long long long long long long long long long bookName ",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
+//     },
+//     {
+//         boodId : 123,
+//         name : "bookName",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
+//     },
+//     {
+//         boodId : 123,
+//         name : "long long long long long long long long long long bookName ",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
+//     },
+//     {
+//         boodId : 123,
+//         name : "bookName",
+//         author : "somebody",
+//         category : "fiction",
+//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
+//     }
+// ]
 
 // Homepage should contain a list of books
 function Homepage() {
+    const [books, setBooks] = useState([]);
     const [createBookOpen, setCreateBookOpen] = useState(false);
     const handleCreateBook = () => {
         setCreateBookOpen(true);
@@ -59,6 +61,20 @@ function Homepage() {
     const handleCloseCreateBook = () => {
         setCreateBookOpen(false);
     }
+
+    useEffect(() => {
+        getAllBooks().then(booksName => {
+            console.log(booksName)
+            const promises = [];
+            booksName.forEach(bookName => {
+                promises.push(getBookInfo(bookName));
+            })
+            console.log(promises);
+            Promise.all(promises).then(res => {
+                setBooks(res);
+            })
+        })
+    }, [])
     
     return(
         <div>
@@ -68,9 +84,9 @@ function Homepage() {
             
             <div className="books-container" style={{display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap"}}>
                 {
-                    books.map(book => {
+                    books.map((book, index) => {
                         return (
-                            <Book book={book}/>
+                            <Book book={book} key={index}/>
                         )
                     })
                 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import './CreateBook.css';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -15,10 +15,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import InputField from "../Common/InputField";
 
+import { postBook } from '../../api/book';
+
+
+// Reference: https://codesandbox.io/s/cgeml1?file=/demo.js
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
-  });
+});
 
 function CreateBook(props) {
     const {open, handleClose} =  props;
@@ -31,6 +35,7 @@ function CreateBook(props) {
 
     const handleSubmit = () => {
         console.log('handling submit...');
+        postBook(bookName, bookAuthor, bookCategory, bookDescription);
         // TODO: Format data from state and submit request to backend
     }
 
@@ -42,7 +47,7 @@ function CreateBook(props) {
             TransitionComponent={Transition}
         >
         <AppBar sx={{ position: 'relative' }}>
-            <Toolbar>
+            <Toolbar sx={{bgcolor: "#2196F3"}}>
                 <IconButton
                     edge="start"
                     color="inherit"
