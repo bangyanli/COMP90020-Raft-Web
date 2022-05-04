@@ -1,49 +1,41 @@
 
+import { myFetch } from "./util";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 
 async function getAllBooks() {
-    const url = `${BASE_URL}/library`;
+    const url = `/library`;
     const requestInit = {
         method : "GET",
         
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 async function getBookInfo(bookName) {
-    const url = `${BASE_URL}/library/book/${bookName}`;
+    const url = `/library/book/${bookName}`;
     const requestInit = {
         method : "GET",
         
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 async function getBookIndex(bookName) {
-    const url = `${BASE_URL}/library/book/${bookName}/index`;
+    const url = `/library/book/${bookName}/index`;
     const requestInit = {
         method : "GET",
         
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 async function postBook(bookName, author, category, description) {
-    const url = `${BASE_URL}/library/book/${bookName}`;
+    const url = `/library/book/${bookName}`;
     const data = new FormData();
     data.append("author", author);
     data.append("category", category);
@@ -53,28 +45,22 @@ async function postBook(bookName, author, category, description) {
         method : "POST",
         body: data
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 async function getBookChapter(bookName, chapterName) {
-    const url = `${BASE_URL}/library/book/${bookName}/${chapterName}`;
+    const url = `/library/book/${bookName}/${chapterName}`;
     const requestInit = {
         method : "GET",
         
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 async function uploadBookChapter(bookName, chapterName, content) {
-    const url = `${BASE_URL}/library/book/${bookName}/${chapterName}`;
+    const url = `/library/book/${bookName}/${chapterName}`;
     const data = new FormData();
     data.append("file", content);
 
@@ -82,11 +68,8 @@ async function uploadBookChapter(bookName, chapterName, content) {
         method : "POST",
         body: data
     }
-    const response = await fetch(url, requestInit)
-    if(response.ok) {
-        const res = await response.json();
-        return res.data;
-    }
+    const response = await myFetch(url, requestInit)
+    return response;
 }
 
 export {
