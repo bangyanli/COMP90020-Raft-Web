@@ -1,0 +1,14 @@
+.chapter-page {
+    width: 100%;
+    background-color: black;
+
+}
+
+.background {
+    width: 100vw;
+    height: 100vh;
+    background-color: azure;
+    z-index: -2;
+    position: fixed;
+
+}

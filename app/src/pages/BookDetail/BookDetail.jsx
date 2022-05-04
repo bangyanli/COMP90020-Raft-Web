@@ -4,7 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Button} from "@mui/material";
 import {AddChapter, EditChapter} from "../../components/EditChapter/EditChapter";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import {getBookIndex, getBookInfo} from "../../api/book";
 
@@ -12,41 +12,15 @@ import {getBookIndex, getBookInfo} from "../../api/book";
 
 const defaultBook = {
     boodId : 123,
-    name : "long long long long long long long long long long bookName ",
-    author : "somebody",
-    category : "fiction",
-    description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-    chapters: [
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        {
-            name: "chapterName"
-        },
-        
-    ]
+    name : " ",
+    author : "",
+    category : "",
+    description : "",
 }
 
 
 function BookDetail() {
+    const navigate = useNavigate();
     const {bookName} = useParams();
 
     
@@ -56,11 +30,10 @@ function BookDetail() {
 
     const [addChapterOpen, setAddChapterOpen] = useState(false);
     const [editChapterOpen, setEditChapterOpen] = useState(false);
-    const [currentChapter, setCurrentChapter] = useState({});
+    const [currentChapter, setCurrentChapter] = useState("");
 
     useEffect(()=>{
         getBookInfo(bookName).then(res => {
-            console.log(res);
             setBook(res);
         })
 
@@ -83,6 +56,10 @@ function BookDetail() {
     const handleEditChapterClose = () => {
         setEditChapterOpen(false);
     }
+
+    const handleClickChapter = (chapter) => {
+        navigate(chapter);
+    }
     return(
         <div className="book-body">
             <AddChapter open={addChapterOpen} handleClose={handleAddChapterClose} bookName={bookName}/>
@@ -96,9 +73,9 @@ function BookDetail() {
                     <h3>
                         Written By: {book.author}
                     </h3>
-                    <div>
+                    <p>
                         {book.description}
-                    </div>
+                    </p>
                     <div className="book-actions">
                         <Button variant="contained" sx={{mr: "10px"}} onClick={()=>{setAddChapterOpen(true)}} >Add Chapter</Button>
                     </div>
@@ -115,15 +92,15 @@ function BookDetail() {
 
                             return (
                                 <div className="each-chapter">
-                                    <div className="chapter-name">
+                                    <div className="chapter-name" onClick={() => {handleClickChapter(chapter)}}>
                                         {chapter}
                                     </div>
-                                    <IconButton onClick={handleEditChapterOpen}>
+                                    <IconButton onClick={()=>{handleEditChapterOpen(chapter)}}>
                                         <EditIcon/>
                                     </IconButton>
-                                    <IconButton>
+                                    {/* <IconButton>
                                         <DeleteIcon/>
-                                    </IconButton>
+                                    </IconButton> */}
                                     {/* <div className="chapter-operation">
                                         <EditIcon sx={{ color: "gray" }} fontSize="large"/>
                                     </div>

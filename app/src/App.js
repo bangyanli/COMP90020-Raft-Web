@@ -11,6 +11,7 @@ import ServerLogs from './components/ServerLogs/ServerLogs';
 import Homepage from './pages/Homepage/Homepage';
 import BookDetail from './pages/BookDetail/BookDetail';
 import { useEffect, useState } from 'react';
+import Chapter from './components/Chapter/Chapter';
 
 function App() {
   const logWidth = "30vw";
@@ -21,6 +22,21 @@ function App() {
     setBodyWidth(`calc(100vw - ${logOpen ? logWidth : "0vw"})`)
     // console.log(bodyWidth);
   },[logOpen])
+
+  useEffect(()=>{
+    const url = "ws://192.168.0.100:5000/test"
+    const socket = new WebSocket(url);
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        console.log("connected!");
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server ', event.data);
+    });
+  }, [])
 
 
   return (
@@ -33,6 +49,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Homepage />} />
               <Route path="/book/:bookName" element={<BookDetail />}/>
+              <Route path="/book/:bookName/:chapterName" element={<Chapter />}/>
+              
             </Routes> 
             
           </div>

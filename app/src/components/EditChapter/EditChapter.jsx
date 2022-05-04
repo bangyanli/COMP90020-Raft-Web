@@ -9,7 +9,7 @@ import {
     TextField
 } from "@mui/material"
 import Slide from '@mui/material/Slide';
-import { uploadBookChapter } from '../../api/book';
+import { getBookChapter, uploadBookChapter } from '../../api/book';
 
 
 
@@ -92,6 +92,15 @@ function EditChapter(props) {
         handleClose();
     }
 
+    React.useEffect(()=> {
+        if(open) {
+            getBookChapter(bookName, currentChapter).then(res => {
+                setContent(res);
+            })
+        }
+        
+    },[open])
+
     return (
         <Dialog
             fullWidth
@@ -101,7 +110,7 @@ function EditChapter(props) {
         >
             <DialogTitle>Edit chapter</DialogTitle>
             <DialogContent>
-                <DialogContentText sx={{color: "black", mt: "10px"}}>New Content</DialogContentText>
+                <DialogContentText sx={{color: "black", mt: "10px"}}>Chapter: {currentChapter}</DialogContentText>
                 <TextField
                     fullWidth
                     multiline
