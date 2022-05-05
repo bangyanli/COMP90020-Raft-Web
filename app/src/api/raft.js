@@ -3,7 +3,7 @@
 async function election(hostUrl) {
     const url = `${hostUrl}/raftControl/election`
     const init = {
-        request: "POST"
+        method: "POST"
     }
 
     const response = await fetch(url, init);
@@ -14,7 +14,7 @@ async function election(hostUrl) {
 async function setLatency(hostUrl, ip, latency) {
     const url = `${hostUrl}/raftControl/latency?ip=${ip}&latency=${latency}`
     const init = {
-        request: "POST"
+        method: "POST"
     }
 
     const response = await fetch(url, init);
@@ -24,9 +24,15 @@ async function setLatency(hostUrl, ip, latency) {
 async function shutdown(hostUrl) {
     const url = `${hostUrl}/raftControl/shutdown`
     const init = {
-        request: "POST"
+        method: "POST"
     }
 
     const response = await fetch(url, init);
     console.log(response);
+}
+
+export {
+    election,
+    setLatency,
+    shutdown
 }

@@ -32,3 +32,9 @@
     white-space: pre-wrap;
     margin: 9px 5px;
 }
+
+.operations {
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
