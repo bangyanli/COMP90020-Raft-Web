@@ -69,12 +69,12 @@ function Homepage() {
 
     useEffect(() => {
         getAllBooks().then(booksName => {
-            console.log(booksName)
+            // console.log(booksName)
             const promises = [];
             booksName.forEach(bookName => {
                 promises.push(getBookInfo(bookName));
             })
-            console.log(promises);
+            // console.log(promises);
             Promise.all(promises).then(res => {
                 setBooks(res);
             })

@@ -8,7 +8,7 @@ async function myFetch(url, init) {
         try{
             // Fetch using the first host
             const response =  await fetch(hosts[0] + url, init);
-            console.log(response);
+            // console.log(response);
 
             
             if(response.ok) {
@@ -24,6 +24,10 @@ async function myFetch(url, init) {
                 const index = hosts.indexOf(leader);
                 hosts.splice(index, 1);
                 hosts.unshift(leader);
+            } else if(response.status == 400) {
+                const res = await response.json();
+                alert(res.msg);
+                break;
             }
 
         }catch (err){

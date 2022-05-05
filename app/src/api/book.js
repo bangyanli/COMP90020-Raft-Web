@@ -46,6 +46,7 @@ async function postBook(bookName, author, category, description) {
         body: data
     }
     const response = await myFetch(url, requestInit)
+    console.log(response)
     return response;
 }
 

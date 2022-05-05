@@ -1,28 +1,9 @@
 import { useEffect, useState } from 'react';
+import { election, setLatency  as setNodeLatency, shutdown,  } from '../../api/raft';
+
 
 import './ServerLogs.css'
 
-
-const mockData = [
-    "added some chapter to some book",
-    "added some chapter to some book",
-    "some book is created",
-    "added some chapter to some book",
-    "added some chapter to some book",
-    "updated some chapter to anthoer chapter with a very very very very long name",
-    "updated some chapter to anthoer chapter",
-    "delted some chapter",
-    "delted some book",
-    "added some chapter to some book",
-    "added some chapter to some book",
-    "some book is created",
-    "added some chapter to some book",
-    "added some chapter to some book",
-    "updated some chapter to anthoer chapter",
-    "updated some chapter to anthoer chapter",
-    "delted some chapter",
-    "delted some book",
-]
 
 function ServerLogs() {
     // Connect to the server using websockt
@@ -35,7 +16,7 @@ function ServerLogs() {
     <div className="logs-container" >
         {
             servers.map((server) => 
-            <Log serverUrl={server}/>
+            <Log serverUrl={server} servers={servers}/>
             // <div>
             //     <div style={{margin: "30px 30px 0px 30px"}}>
             //         {}{server}
@@ -53,8 +34,40 @@ function ServerLogs() {
 }
 
 function Log(props) {
-    const {serverUrl, isLeader = true} = props
+    const {serverUrl, isLeader = true, servers} = props
     const [data, setData] = useState([]);
+    const [update, setUpdate] = useState(0);
+
+    const [ip, setIp] = useState();
+    const [latency, setLatency] = useState();
+
+    const handleChangeIp = (e) => {
+        // console.log(e.target.value);
+        setIp(e.target.value);
+    }
+
+    const handleChangeLatency = (e) => {
+        // console.log(e.target.value);
+        setLatency(e.target.value);
+    }
+
+    const handleAddLatency = () => {
+        console.log("Adding latency...")
+        console.log(ip);
+        console.log(latency);
+        setNodeLatency(ip, serverUrl, latency);
+    }
+
+    const handleElection = () => {
+        console.log("Start election");
+        election(serverUrl);
+    }
+
+    const handleShutdown = () => {
+        console.log("shutting down");
+        shutdown(serverUrl)
+    }
+
 
     useEffect(()=>{
         const url = `${serverUrl.replace("http", "ws")}/raft`
@@ -96,6 +109,20 @@ function Log(props) {
                 {data.map((ele) => 
                     <div><pre className="log-format">{ele}</pre></div>
                 )}
+            </div>
+            <div className="operations">
+                <select name="ip" id="ip" value={ip} onChange={handleChangeIp}>
+                    <option value="">Select a node...</option>
+                    {servers.filter(elem => elem!==serverUrl).map((elem) => {
+                        return <option value={elem}>{elem}</option>
+                    })}
+                </select>
+                <input placeholder="latency" style={{width: "90px"}} onChange={handleChangeLatency}></input>
+                <button onClick={handleAddLatency}>add latency</button>
+                <span style={{flexGrow: 1}}></span>
+                <button onClick={handleElection}>election</button>
+                <button onClick={handleShutdown}>safe shutdown</button>
+                
             </div>
         </div>
 
