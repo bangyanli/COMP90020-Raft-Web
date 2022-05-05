@@ -25,17 +25,19 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function CreateBook(props) {
-    const {open, handleClose} =  props;
+    const {open, handleClose, handleUpdate} =  props;
 
     const [bookName, setBookName] = useState("");
     const [bookAuthor, setBookAuthor] = useState("");
     const [bookCategory, setBookCategory] = useState("");
     const [bookDescription, setBookDescription] = useState("");
-    const [bookContent, setBookContent] = useState("");
+    // const [bookContent, setBookContent] = useState("");
 
     const handleSubmit = () => {
-        console.log('handling submit...');
-        postBook(bookName, bookAuthor, bookCategory, bookDescription);
+        postBook(bookName, bookAuthor, bookCategory, bookDescription).then(res => {
+            handleClose();
+            handleUpdate();
+        });
         // TODO: Format data from state and submit request to backend
     }
 
@@ -68,8 +70,8 @@ function CreateBook(props) {
             <InputField label="Name" name="name" valueState={bookName} setValueState={setBookName} />
             <InputField label="Author" name="author" valueState={bookAuthor} setValueState={setBookAuthor} />
             <InputField label="Category" name="category" valueState={bookCategory} setValueState={setBookCategory} />
-            <InputField label="Description" name="description" valueState={bookDescription} setValueState={setBookDescription} style={{ width: "50%", height:"6em" }} textarea={true} />
-            <InputField label="Content" name="content" valueState={bookContent} setValueState={setBookContent} style={{ width: "100%", height:"20em" }} textarea={true} />
+            <InputField label="Description" name="description" valueState={bookDescription} setValueState={setBookDescription} style={{ width: "80%", height:"40vh" }} textarea={true} />
+            {/* <InputField label="Content" name="content" valueState={bookContent} setValueState={setBookContent} style={{ width: "100%", height:"20em" }} textarea={true} /> */}
         </div>
       </Dialog>
     )

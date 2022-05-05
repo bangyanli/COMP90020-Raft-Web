@@ -19,14 +19,15 @@ function Chapter() {
 
 
     return(
-        <div>
-            <div>
-                {bookName}
+        <div className="background">
+            <div className="paper">
+                <h1>
+                    {bookName}
+                </h1>
+                <p style={{marginTop: "30px"}}>
+                    {chapter}
+                </p>
             </div>
-            <p>
-                {chapter}
-            </p>
-
         </div>
     )
 }

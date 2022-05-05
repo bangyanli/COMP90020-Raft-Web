@@ -62,6 +62,11 @@ function Homepage() {
         setCreateBookOpen(false);
     }
 
+    const [update, setUpdate] = useState(0);
+    const handleUpdate = () => {
+        setUpdate(update+1);
+    }
+
     useEffect(() => {
         getAllBooks().then(booksName => {
             console.log(booksName)
@@ -74,7 +79,7 @@ function Homepage() {
                 setBooks(res);
             })
         })
-    }, [])
+    }, [update])
     
     return(
         <div>
@@ -92,7 +97,7 @@ function Homepage() {
                 }
             </div>
 
-            <CreateBook open={createBookOpen} handleClose={handleCloseCreateBook} />
+            <CreateBook open={createBookOpen} handleClose={handleCloseCreateBook} handleUpdate={handleUpdate}/>
         </div>
     )
 }

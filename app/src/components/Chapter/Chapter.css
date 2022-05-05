@@ -5,10 +5,17 @@
 }
 
 .background {
-    width: 100vw;
-    height: 100vh;
-    background-color: azure;
-    z-index: -2;
-    position: fixed;
+    background-color: #D1DCDF;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+.paper {
+    width: 70%;
+    min-height: 90vh;
+    background-color: #E3EEF1;
+    padding: 40px 80px;
+    margin: 5vh 20vw;
 }

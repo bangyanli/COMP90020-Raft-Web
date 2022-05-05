@@ -24,7 +24,7 @@ function App() {
   },[logOpen])
 
   useEffect(()=>{
-    const url = "ws://192.168.0.100:5000/test"
+    const url = "ws://localhost:5000/raft"
     const socket = new WebSocket(url);
 
     // Connection opened

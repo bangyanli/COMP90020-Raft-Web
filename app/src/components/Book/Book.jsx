@@ -39,7 +39,7 @@ function Book(props) {
                 <Typography gutterBottom variant="subtitle1" sx={overflowControl}>
                     Written by: {book.author}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{overflow: "scroll", height: 60}}>
+                <Typography variant="body2" color="text.secondary" sx={{overflow: "auto", height: 60}}>
                     {book.description}
                 </Typography>
             </CardContent>
