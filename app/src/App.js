@@ -23,20 +23,20 @@ function App() {
     // console.log(bodyWidth);
   },[logOpen])
 
-  useEffect(()=>{
-    const url = "ws://localhost:5000/raft"
-    const socket = new WebSocket(url);
+  // useEffect(()=>{
+  //   const url = "ws://localhost:5000/raft"
+  //   const socket = new WebSocket(url);
 
-    // Connection opened
-    socket.addEventListener('open', function (event) {
-        console.log("connected!");
-    });
+  //   // Connection opened
+  //   socket.addEventListener('open', function (event) {
+  //       console.log("connected!");
+  //   });
 
-    // Listen for messages
-    socket.addEventListener('message', function (event) {
-        console.log('Message from server ', event.data);
-    });
-  }, [])
+  //   // Listen for messages
+  //   socket.addEventListener('message', function (event) {
+  //       console.log('Message from server ', event.data);
+  //   });
+  // }, [])
 
 
   return (

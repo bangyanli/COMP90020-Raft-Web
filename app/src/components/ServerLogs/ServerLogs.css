@@ -13,12 +13,16 @@
     flex-direction: column; */
 }
 
+.log-container {
+    margin: 30px
+}
+
 .log {
     height: 30vh;
     background-color: white;
     color: black;
     overflow: auto;
-    margin: 0 30px;
+    /* margin: 0 30px; */
 }
 
 .log-format {
