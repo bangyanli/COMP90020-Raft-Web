@@ -21,6 +21,7 @@ async function myFetch(url, init) {
                 // Use new leader, set the leader as the first in hosts
                 const res = await response.json();
                 const leader = "http://" + res.msg;
+                console.log("new leader received: " + leader);
                 const index = hosts.indexOf(leader);
                 hosts.splice(index, 1);
                 hosts.unshift(leader);
