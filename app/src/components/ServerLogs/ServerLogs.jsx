@@ -64,12 +64,23 @@ function Log(props) {
         socket.addEventListener('open', function (event) {
             // console.log("connected!");
         });
-    
+
         // Listen for messages
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
+            var index = event.data.lastIndexOf("become")
+            if(index>15){
+                var leaderHost = event.data.subString(index-15,index-1)
+                setData(old => [...old,leaderHost])
+                
+            }
             setData(old => [...old, event.data])
         });
+        
+        //connection closed
+        socket.addEventListener('close',function (event) {
+
+        })
     }, [])
 
     
