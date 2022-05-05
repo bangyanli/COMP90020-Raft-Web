@@ -88,7 +88,7 @@ function BookDetail() {
                         Select a chapter
                     </h3>
                     {
-                        chapters.map((chapter) => {
+                        chapters.filter(chapter => chapter !== "info.json").map((chapter) => {
 
                             return (
                                 <div className="each-chapter">
