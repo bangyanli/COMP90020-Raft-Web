@@ -34,8 +34,9 @@ function ServerLogs() {
 }
 
 function Log(props) {
-    const {serverUrl, isLeader = true, servers} = props
+    const {serverUrl, servers} = props
     const [data, setData] = useState([]);
+    const [leader,setLeader] = useState(false);
     const [update, setUpdate] = useState(0);
 
     const [ip, setIp] = useState();
@@ -81,18 +82,26 @@ function Log(props) {
         // Listen for messages
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
-            var index = event.data.lastIndexOf("become")
+            let data = String(event.data)
+            let index = data.lastIndexOf("become LEADER")
             if(index>15){
-                var leaderHost = event.data.subString(index-15,index-1)
-                setData(old => [...old,leaderHost])
+                let leaderHost = data.substring(index-15,index-2)
+                let updateUrl = String(serverUrl.replace("http://",""))
+                updateUrl = updateUrl.substring(0,updateUrl.length-1)
+                //console.log(leaderHost)
+                //console.log(updateUrl)
+                if(leaderHost===updateUrl){
+                    setLeader(true)
+                }
+                ////console.log("leader index : " + index)
                 
             }
-            setData(old => [...old, event.data])
+            setData(old => [...old, data])
         });
         
         //connection closed
         socket.addEventListener('close',function (event) {
-
+            setLeader(false)
         })
     }, [])
 
@@ -102,7 +111,7 @@ function Log(props) {
         <div className="log-container">
             <div>
                 {
-                    isLeader ? <span>Leader: </span> : <span/>
+                    leader ? <span>Leader: </span> : <span/>
                 } {serverUrl}
             </div>
             <div className="log">
