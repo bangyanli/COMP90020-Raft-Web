@@ -69,40 +69,56 @@ function Log(props) {
         shutdown(serverUrl)
     }
 
-
-    useEffect(()=>{
-        const url = `${serverUrl.replace("http", "ws")}/raft`
-        const socket = new WebSocket(url);
+    const connect = () => {
+        const url = `${serverUrl.replace("http", "ws")}/raft`;
+        let socket = new WebSocket(url);
     
         // Connection opened
         socket.addEventListener('open', function (event) {
             // console.log("connected!");
+            setData([]);
         });
 
         // Listen for messages
         socket.addEventListener('message', function (event) {
             // console.log('Message from server ', event.data);
-            let data = String(event.data)
-            let index = data.lastIndexOf("become LEADER")
+            let data = String(event.data);
+            let index = data.lastIndexOf("become LEADER");
             if(index>15){
-                let leaderHost = data.substring(index-15,index-2)
-                let updateUrl = String(serverUrl.replace("http://",""))
-                updateUrl = updateUrl.substring(0,updateUrl.length-1)
+                let leaderHost = data.substring(index-15,index-2);
+                let updateUrl = String(serverUrl.replace("http://",""));
+                updateUrl = updateUrl.substring(0,updateUrl.length-1);
                 //console.log(leaderHost)
                 //console.log(updateUrl)
                 if(leaderHost===updateUrl){
-                    setLeader(true)
+                    setLeader(true);
                 }
                 ////console.log("leader index : " + index)
                 
             }
-            setData(old => [...old, data])
+            setData(old => [...old, data]);
         });
         
         //connection closed
         socket.addEventListener('close',function (event) {
+            setData(["connection closed, retry it in 2seconds"]);
+            setLeader(false);
+            setTimeout(function() {
+                connect();
+              }, 1000);
+        });
+
+        socket.addEventListener('error',function(event){
+            setData(["connection error, retry it in 2seconds"]);
             setLeader(false)
-        })
+            socket.close();
+        });
+    }
+    useEffect(()=>{
+        
+        connect();
+
+
     }, [])
 
     
