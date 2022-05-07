@@ -18,7 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function AddChapter(props) {
-    const {open, handleClose, bookName} =  props;
+    const {open, handleClose, bookName, refresh} =  props;
 
     const [chapterName, setChapterName] = React.useState("");
     const [content, setContent] = React.useState("");
@@ -33,8 +33,11 @@ function AddChapter(props) {
 
     const handleAddChapter = () => {
         // TODO handle failure
-        uploadBookChapter(bookName, chapterName, content);
-        handleClose();
+        uploadBookChapter(bookName, chapterName, content).finally( () => {
+            refresh();
+            handleClose();
+        });
+        
     }
 
     return (
@@ -77,7 +80,7 @@ function AddChapter(props) {
 }
 
 function EditChapter(props) {
-    const {open, handleClose, currentChapter, bookName} =  props;
+    const {open, handleClose, currentChapter, bookName, refresh} =  props;
 
     const [content, setContent] = React.useState("");
 
@@ -88,8 +91,11 @@ function EditChapter(props) {
 
     const handleEditChapter = () => {
         // TODO handle failure
-        uploadBookChapter(bookName, currentChapter, content);
-        handleClose();
+        uploadBookChapter(bookName, currentChapter, content).finally(() => {
+            refresh();
+            handleClose();
+        });
+        
     }
 
     React.useEffect(()=> {

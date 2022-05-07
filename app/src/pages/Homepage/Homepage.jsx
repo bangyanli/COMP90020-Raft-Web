@@ -82,12 +82,12 @@ function Homepage() {
     }, [update])
     
     return(
-        <div>
-            <Button variant="outlined" onClick={handleCreateBook}>
-                Create Book
+        <div style={{position: "relative"}}>
+            <Button variant="outlined" onClick={handleCreateBook} sx={{color: "black", bgcolor: "white", ":hover": {bgcolor: "#70C76D"}, position: "absolute", top: "-80px", right: "120px"}}>
+                Upload Book
             </Button>
             
-            <div className="books-container" style={{display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap"}}>
+            <div className="books-container" style={{display: "flex", alignItems: "center", justifyContent: "center", flexWrap: "wrap", margin: "30px 10% 0 10%"}}>
                 {
                     books.map((book, index) => {
                         return (

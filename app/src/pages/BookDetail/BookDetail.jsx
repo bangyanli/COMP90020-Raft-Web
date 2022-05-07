@@ -22,6 +22,11 @@ const defaultBook = {
 function BookDetail() {
     const navigate = useNavigate();
     const {bookName} = useParams();
+    const [update, setUpdate] = useState(0);
+
+    const refresh = () => {
+        setUpdate(update+1);
+    }
 
     
     const [book, setBook] = useState(defaultBook);
@@ -41,7 +46,7 @@ function BookDetail() {
             setChapters(res);
         })
 
-    },[bookName])
+    },[bookName, update])
 
     const handleAddChapterClose = ()=> {
         setAddChapterOpen(false)
@@ -62,8 +67,8 @@ function BookDetail() {
     }
     return(
         <div className="book-body">
-            <AddChapter open={addChapterOpen} handleClose={handleAddChapterClose} bookName={bookName}/>
-            <EditChapter open={editChapterOpen} handleClose={handleEditChapterClose} bookName={bookName} currentChapter={currentChapter}/>
+            <AddChapter open={addChapterOpen} handleClose={handleAddChapterClose} bookName={bookName} refresh={refresh}/>
+            <EditChapter open={editChapterOpen} handleClose={handleEditChapterClose} bookName={bookName} currentChapter={currentChapter} refresh={refresh}/>
             <div className="book-header">
                 <img alt="a book" src="/book.png" className="book-img"/>
                 <div className="book-info">

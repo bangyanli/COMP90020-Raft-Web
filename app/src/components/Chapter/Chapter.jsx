@@ -22,7 +22,7 @@ function Chapter() {
         <div className="background">
             <div className="paper">
                 <h1>
-                    {bookName}
+                    {chapterName}
                 </h1>
                 <p style={{marginTop: "30px"}}>
                     {chapter}
