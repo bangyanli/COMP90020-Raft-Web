@@ -10,24 +10,12 @@ function ServerLogs() {
     // expect the socket to return data similar to mockData
 
     const servers = JSON.parse(process.env.REACT_APP_HOSTS);
-    const time = `[${(new Date().toLocaleString())}]\n`
 
     return(
     <div className="logs-container" >
         {
             servers.map((server) => 
-            <Log serverUrl={server} servers={servers}/>
-            // <div>
-            //     <div style={{margin: "30px 30px 0px 30px"}}>
-            //         {}{server}
-            //     </div>
-            //     <div className="log">
-            //         {mockData.map((ele) => 
-            //             <div><pre className="log-format">{time+ele}</pre></div>
-            //         )}
-            //     </div>
-            //     <Log serverUrl={server}/>
-            // </div>
+            <Log key={server} serverUrl={server} servers={servers}/>
             )
         }
     </div>)
@@ -37,7 +25,6 @@ function Log(props) {
     const {serverUrl, servers} = props
     const [data, setData] = useState([]);
     const [leader,setLeader] = useState(false);
-    const [update, setUpdate] = useState(0);
 
     const [ip, setIp] = useState();
     const [latency, setLatency] = useState();
@@ -121,7 +108,7 @@ function Log(props) {
         
         connect();
 
-
+        // eslint-disable-next-line
     }, [])
 
     
@@ -140,9 +127,9 @@ function Log(props) {
             </div>
             <div className="operations">
                 <select name="ip" id="ip" value={ip} onChange={handleChangeIp}>
-                    <option value="">Select a node...</option>
+                    <option key="" value="">Select a node...</option>
                     {servers.filter(elem => elem!==serverUrl).map((elem) => {
-                        return <option value={elem}>{elem}</option>
+                        return <option key={elem} value={elem}>{elem}</option>
                     })}
                 </select>
                 <input placeholder="latency" style={{width: "90px"}} onChange={handleChangeLatency}></input>

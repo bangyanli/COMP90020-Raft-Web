@@ -104,7 +104,7 @@ function EditChapter(props) {
                 setContent(res);
             })
         }
-        
+        // eslint-disable-next-line
     },[open])
 
     return (

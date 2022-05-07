@@ -15,6 +15,7 @@ function Chapter(props) {
         getBookChapter(currentHost, bookName, chapterName).then(res=>{
             setChapter(res);
         })
+        // eslint-disable-next-line
     },[])
 
 

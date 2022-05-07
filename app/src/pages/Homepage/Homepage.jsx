@@ -34,6 +34,7 @@ function Homepage(props) {
                 setBooks(res);
             })
         })
+        // eslint-disable-next-line
     }, [update])
     
     return(

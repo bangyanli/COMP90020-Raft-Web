@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import "./BookDetail.css";
 import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton, Button} from "@mui/material";
 import {AddChapter, EditChapter} from "../../components/EditChapter/EditChapter";
 import { useParams, useNavigate } from "react-router-dom";
@@ -46,7 +45,7 @@ function BookDetail(props) {
         getBookIndex(currentHost, bookName).then(res => {
             setChapters(res);
         })
-
+        // eslint-disable-next-line
     },[bookName, update])
 
     const handleAddChapterClose = ()=> {

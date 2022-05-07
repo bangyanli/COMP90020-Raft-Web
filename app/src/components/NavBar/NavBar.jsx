@@ -28,7 +28,7 @@ function NavBar(props) {
                 >
                     {
                         hosts.map((host) => {
-                            return <MenuItem value={host}>{host}</MenuItem>
+                            return <MenuItem key={host} value={host}>{host}</MenuItem>
                         })
                     }
                 </Select>
