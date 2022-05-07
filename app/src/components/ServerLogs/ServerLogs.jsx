@@ -84,6 +84,9 @@ function Log(props) {
             // console.log('Message from server ', event.data);
             let data = String(event.data);
             let index = data.lastIndexOf("become LEADER");
+            if(data.includes("FOLLOWER")){
+                setLeader(false);
+            }
             if(index>15){
                 let leaderHost = data.substring(index-15,index-2);
                 let updateUrl = String(serverUrl.replace("http://",""));
