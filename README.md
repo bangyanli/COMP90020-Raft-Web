@@ -1,7 +1,72 @@
 # COMP90020-Raft-Web
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a distributed web-based e-book system where any user can publish and read books on the webpage. The objective of the system is to assist book publishing. Different from the traditional publishing process, authors can update their books chapter by chapter. And users can read them immediately without waiting for the entire book to be published.
+
+# Project Structure
+All source code are contained in the ```src``` folder
+
+the ```api``` folder conatins all functions that are used to connect backend API
+
+the ```components``` folder contains all react components we used, with each sub-folder representing a component
+
+the ```pages``` folder contains all react pages object
+
+```
+~/COMP90020-RAFT-WEB/APP/SRC
+│   App.css
+│   App.js
+│   App.test.js
+│   index.css
+│   index.js
+│   logo.svg
+│   reportWebVitals.js
+│   setupTests.js
+│
+├───api
+│       book.js
+│       raft.js
+│       socket.js
+│       util.js
+│
+├───components
+│   ├───Book
+│   │       Book.css
+│   │       Book.jsx
+│   │
+│   ├───Chapter
+│   │       Chapter.css
+│   │       Chapter.jsx
+│   │
+│   ├───Common
+│   │       InputField.jsx
+│   │
+│   ├───CreateBook
+│   │       CreateBook.css
+│   │       CreateBook.jsx
+│   │
+│   ├───EditChapter
+│   │       EditChapter.jsx
+│   │
+│   ├───NavBar
+│   │       NavBar.css
+│   │       NavBar.jsx
+│   │
+│   └───ServerLogs
+│           ServerLogs.css
+│           ServerLogs.jsx
+│
+└───pages
+    ├───BookDetail
+    │       BookDetail.css
+    │       BookDetail.jsx
+    │
+    └───Homepage
+            Homepage.jsx
+```
+
+# How to run the app
+
+First navigate to the ```app``` folder
 
 ## Available Scripts
 
