@@ -25,7 +25,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 function CreateBook(props) {
-    const {open, handleClose, handleUpdate} =  props;
+    const {open, handleClose, handleUpdate, currentHost} =  props;
 
     const [bookName, setBookName] = useState("");
     const [bookAuthor, setBookAuthor] = useState("");
@@ -34,7 +34,7 @@ function CreateBook(props) {
     // const [bookContent, setBookContent] = useState("");
 
     const handleSubmit = () => {
-        postBook(bookName, bookAuthor, bookCategory, bookDescription).then(res => {
+        postBook(currentHost, bookName, bookAuthor, bookCategory, bookDescription).then(res => {
             handleClose();
             handleUpdate();
         });

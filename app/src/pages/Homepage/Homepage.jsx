@@ -4,54 +4,9 @@ import CreateBook from "../../components/CreateBook/CreateBook";
 import { Button } from "@mui/material";
 import { getAllBooks, getBookInfo } from "../../api/book";
 
-
-// const books = [
-//     {
-//         boodId : 123,
-//         name : "long long long long long long long long long long bookName ",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-//     },
-//     {
-//         boodId : 123,
-//         name : "bookName",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-//     },
-//     {
-//         boodId : 123,
-//         name : "long long long long long long long long long long bookName ",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-//     },
-//     {
-//         boodId : 123,
-//         name : "bookName",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-//     },
-//     {
-//         boodId : 123,
-//         name : "long long long long long long long long long long bookName ",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla ablabla blablabla blablabla blablabla blablabla blablabla blablabla",
-//     },
-//     {
-//         boodId : 123,
-//         name : "bookName",
-//         author : "somebody",
-//         category : "fiction",
-//         description : "blablabla blablabla blablabla blablabla blablabla blablabla blablabl",
-//     }
-// ]
-
 // Homepage should contain a list of books
-function Homepage() {
+function Homepage(props) {
+    const {currentHost} = props;
     const [books, setBooks] = useState([]);
     const [createBookOpen, setCreateBookOpen] = useState(false);
     const handleCreateBook = () => {
@@ -68,11 +23,11 @@ function Homepage() {
     }
 
     useEffect(() => {
-        getAllBooks().then(booksName => {
+        getAllBooks(currentHost).then(booksName => {
             // console.log(booksName)
             const promises = [];
             booksName.forEach(bookName => {
-                promises.push(getBookInfo(bookName));
+                promises.push(getBookInfo(currentHost, bookName));
             })
             // console.log(promises);
             Promise.all(promises).then(res => {
@@ -91,13 +46,13 @@ function Homepage() {
                 {
                     books.map((book, index) => {
                         return (
-                            <Book book={book} key={index}/>
+                            <Book currentHost={currentHost} book={book} key={index}/>
                         )
                     })
                 }
             </div>
 
-            <CreateBook open={createBookOpen} handleClose={handleCloseCreateBook} handleUpdate={handleUpdate}/>
+            <CreateBook currentHost={currentHost} open={createBookOpen} handleClose={handleCloseCreateBook} handleUpdate={handleUpdate}/>
         </div>
     )
 }

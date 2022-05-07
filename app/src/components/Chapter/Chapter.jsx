@@ -5,13 +5,14 @@ import { getBookChapter } from "../../api/book";
 import "./Chapter.css";
 
 
-function Chapter() {
+function Chapter(props) {
+    const {currentHost} = props
     const {bookName, chapterName} = useParams();
 
     const [chapter, setChapter] = useState("");
 
     useEffect(()=>{
-        getBookChapter(bookName, chapterName).then(res=>{
+        getBookChapter(currentHost, bookName, chapterName).then(res=>{
             setChapter(res);
         })
     },[])

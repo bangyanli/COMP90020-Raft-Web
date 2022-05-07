@@ -15,6 +15,14 @@ import Chapter from './components/Chapter/Chapter';
 
 function App() {
   const logWidth = "30vw";
+  const hosts = JSON.parse(process.env.REACT_APP_HOSTS);
+  const preHost = localStorage.getItem("currentHost");
+  const [currentHost, setCurrentHost] = useState(preHost ? preHost : hosts[0]);
+
+  const handleChangeHost = (newHost) => {
+    setCurrentHost(newHost);
+    localStorage.setItem("currentHost", newHost)
+  }
 
   const [logOpen, setLogOpen] = useState(false);
   const [bodyWidth, setBodyWidth] = useState("100vw");
@@ -23,33 +31,18 @@ function App() {
     // console.log(bodyWidth);
   },[logOpen])
 
-  // useEffect(()=>{
-  //   const url = "ws://localhost:5000/raft"
-  //   const socket = new WebSocket(url);
-
-  //   // Connection opened
-  //   socket.addEventListener('open', function (event) {
-  //       console.log("connected!");
-  //   });
-
-  //   // Listen for messages
-  //   socket.addEventListener('message', function (event) {
-  //       console.log('Message from server ', event.data);
-  //   });
-  // }, [])
-
 
   return (
     <div style={{height: "100vh", display: "flex", flexDirection: "row"}}>
       <div style={{width: bodyWidth, transition: "0.4s", display: "flex", flexDirection:"column", zIndex: 2}}>
         <BrowserRouter>
-          <NavBar logOpen={logOpen} setLogOpen={setLogOpen} width={bodyWidth}/>
+          <NavBar logOpen={logOpen} setLogOpen={setLogOpen} width={bodyWidth} currentHost={currentHost} hosts={hosts} handleChangeHost={handleChangeHost}/>
           <div className="body-container">
             
             <Routes>
-              <Route path="/" element={<Homepage />} />
-              <Route path="/book/:bookName" element={<BookDetail />}/>
-              <Route path="/book/:bookName/:chapterName" element={<Chapter />}/>
+              <Route path="/" element={<Homepage currentHost={currentHost} />} />
+              <Route path="/book/:bookName" element={<BookDetail currentHost={currentHost} />}/>
+              <Route path="/book/:bookName/:chapterName" element={<Chapter currentHost={currentHost} />}/>
               
             </Routes> 
             

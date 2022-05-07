@@ -19,7 +19,8 @@ const defaultBook = {
 }
 
 
-function BookDetail() {
+function BookDetail(props) {
+    const {currentHost} = props
     const navigate = useNavigate();
     const {bookName} = useParams();
     const [update, setUpdate] = useState(0);
@@ -38,11 +39,11 @@ function BookDetail() {
     const [currentChapter, setCurrentChapter] = useState("");
 
     useEffect(()=>{
-        getBookInfo(bookName).then(res => {
+        getBookInfo(currentHost, bookName).then(res => {
             setBook(res);
         })
 
-        getBookIndex(bookName).then(res => {
+        getBookIndex(currentHost, bookName).then(res => {
             setChapters(res);
         })
 
@@ -67,8 +68,8 @@ function BookDetail() {
     }
     return(
         <div className="book-body">
-            <AddChapter open={addChapterOpen} handleClose={handleAddChapterClose} bookName={bookName} refresh={refresh}/>
-            <EditChapter open={editChapterOpen} handleClose={handleEditChapterClose} bookName={bookName} currentChapter={currentChapter} refresh={refresh}/>
+            <AddChapter currentHost={currentHost} open={addChapterOpen} handleClose={handleAddChapterClose} bookName={bookName} refresh={refresh}/>
+            <EditChapter currentHost={currentHost} open={editChapterOpen} handleClose={handleEditChapterClose} bookName={bookName} currentChapter={currentChapter} refresh={refresh}/>
             <div className="book-header">
                 <img alt="a book" src="/book.png" className="book-img"/>
                 <div className="book-info">
@@ -103,16 +104,6 @@ function BookDetail() {
                                     <IconButton onClick={()=>{handleEditChapterOpen(chapter)}}>
                                         <EditIcon/>
                                     </IconButton>
-                                    {/* <IconButton>
-                                        <DeleteIcon/>
-                                    </IconButton> */}
-                                    {/* <div className="chapter-operation">
-                                        <EditIcon sx={{ color: "gray" }} fontSize="large"/>
-                                    </div>
-                                    <div className="chapter-operation">
-                                        <DeleteIcon fontSize="large"/>
-                                    </div> */}
-                                    
                                 </div>
                                 
                             )
